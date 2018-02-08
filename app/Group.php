@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model {
     protected $fillable = [
-        'name','date_start','date_end'
+        'name','date_start','date_end', 'time_start','time_end'
     ];
 
     public function zone() {

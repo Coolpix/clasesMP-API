@@ -18,6 +18,8 @@ class CreateGroupsTable extends Migration
             $table->string('name');
             $table->date('date_start');
             $table->date('date_end');
+            $table->time('time_start');
+            $table->time('time_end');
             $table->integer('zone_id')->unsigned()->nullable();
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

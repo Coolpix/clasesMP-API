@@ -12,10 +12,8 @@
 */
 
 $router->get('/', function () use ($router) {
-    return 'Hello World';
+    return 'Jummmmm...';
 });
-
-
 
 $router->group(['prefix' => 'zones'], function () use ($router) {
     $router->get('/', 'ZonesController@getAll');
