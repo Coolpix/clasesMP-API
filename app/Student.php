@@ -14,6 +14,10 @@ class Student extends Model
         return $this->belongsToMany('App\Group');
     }
 
+    public function lessons() {
+        return $this->belongsToMany('App\Lesson');
+    }
+
     /**
      * The table associated with the model.
      *

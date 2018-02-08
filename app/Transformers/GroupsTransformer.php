@@ -9,7 +9,9 @@ class GroupsTransformer extends TransformerAbstract {
             'id' => $group->id,
             'date_start' => $group->date_start,
             'date_end' => $group->date_end,
-            'zone' => $group->zone
+            'zone' => $group->zone,
+            'lessons' => $group->lessons,
+            'students' => $group->students
         ];
     }
 }

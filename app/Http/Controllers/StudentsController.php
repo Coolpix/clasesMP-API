@@ -31,6 +31,11 @@ class StudentsController extends Controller
         return $student->groups;
     }
 
+    public function getLessons($id){
+        $student = Student::findOrFail($id);
+        return $student->lessons;
+    }
+
     public function saveStudent(Request $request){
         $student = new Student;
         $student->name = $request->name;
@@ -38,6 +43,7 @@ class StudentsController extends Controller
         $student->gender = $request->gender;
         $student->saveOrFail();
         $student->groups()->attach($request->groups);
+        $student->lessons()->attach($request->lessons);
         return (new StudentsTransformer)->transform($student);
     }
 
@@ -49,6 +55,8 @@ class StudentsController extends Controller
         $student->saveOrFail();
         $student->groups()->detach();
         $student->groups()->attach($request->groups);
+        $student->lessons()->detach();
+        $student->lessons()->attach($request->lessons);
         return $student;
     }
 

@@ -4,13 +4,14 @@ use League\Fractal\TransformerAbstract;
 
 class StudentsTransformer extends TransformerAbstract {
 
-    public function transform($zone){
+    public function transform($student){
         return [
-            'id' => $zone->id,
-            'name' => $zone->name,
-            'phone_number' => $zone->phone_number,
-            'gender' => $zone->gender,
-            'groups' => $zone->groups
+            'id' => $student->id,
+            'name' => $student->name,
+            'phone_number' => $student->phone_number,
+            'gender' => $student->gender,
+            'groups' => $student->groups,
+            'lessons' => $student->lessons
         ];
     }
 }

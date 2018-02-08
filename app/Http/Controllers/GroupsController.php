@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Lesson;
 use App\Transformers\Zone\GroupsTransformer;
 use Illuminate\Http\Request;
 use EllipseSynergie\ApiResponse\Contracts\Response;
@@ -31,6 +32,16 @@ class GroupsController extends Controller
         return $group->zone;
     }
 
+    public function getLessonsOfGroup($id){
+        $group = Group::findOrFail($id);
+        return $group->lessons;
+    }
+
+    public function getStudentsOfGroup($id){
+        $group = Group::findOrFail($id);
+        return $group->students;
+    }
+
     public function saveGroup(Request $request){
         $group = new Group;
         $group->name = $request->name;
@@ -38,6 +49,16 @@ class GroupsController extends Controller
         $group->date_end = $request->date_end;
         $group->saveOrFail();
         $group->zone()->associate($request->zone)->save();
+        $group->students()->attach($request->students);
+        foreach ($request->lessons as $lesson){
+            try {
+                $lessontoSave = Lesson::findOrFail($lesson);
+                //Delete lessons before save
+                $group->lessons()->save($lessontoSave);
+            }catch (ModelNotFoundException $ex){
+                return $this->response->errorNotFound('Lesson '. $lesson .' Not Found');
+            }
+        }
         return (new GroupsTransformer)->transform($group);
     }
 
@@ -48,6 +69,17 @@ class GroupsController extends Controller
         $group->date_end = $request->date_end;
         $group->saveOrFail();
         $group->zone()->associate($request->zone)->save();
+        $group->students()->detach();
+        $group->students()->attach($request->students);
+        foreach ($request->lessons as $lesson){
+            try {
+                $lessontoSave = Lesson::findOrFail($lesson);
+                //Delete groups before save
+                $group->lessons()->save($lessontoSave);
+            }catch (ModelNotFoundException $ex){
+                return $this->response->errorNotFound('Lesson '. $lesson .' Not Found');
+            }
+        }
         return (new GroupsTransformer)->transform($group);
     }
 
