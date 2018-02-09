@@ -7,6 +7,8 @@ use App\Transformers\Zone\ZonesTransformer;
 use App\Zone;
 use Illuminate\Http\Request;
 use EllipseSynergie\ApiResponse\Contracts\Response;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
 
 class ZonesController extends Controller
 {
@@ -19,7 +21,9 @@ class ZonesController extends Controller
 
     public function getAll(){
         $zones = Zone::all();
-        //Crear Transformer para arrays
+        $manager = new Manager();
+        $resource = new Collection($zones, new ZonesTransformer());
+        $manager->createData($resource)->toArray();
         return $zones;
     }
 

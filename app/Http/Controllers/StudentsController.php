@@ -6,6 +6,8 @@ use App\Student;
 use App\Transformers\Zone\StudentsTransformer;
 use Illuminate\Http\Request;
 use EllipseSynergie\ApiResponse\Contracts\Response;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
 
 class StudentsController extends Controller
 {
@@ -18,6 +20,9 @@ class StudentsController extends Controller
 
     public function getAll(){
         $student = Student::all();
+        $manager = new Manager();
+        $resource = new Collection($student, new StudentsTransformer());
+        $manager->createData($resource)->toArray();
         return $student;
     }
 

@@ -7,6 +7,8 @@ use App\Lesson;
 use App\Transformers\Zone\GroupsTransformer;
 use Illuminate\Http\Request;
 use EllipseSynergie\ApiResponse\Contracts\Response;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
 
 class GroupsController extends Controller
 {
@@ -19,6 +21,9 @@ class GroupsController extends Controller
 
     public function getAll(){
         $groups = Group::all();
+        $manager = new Manager();
+        $resource = new Collection($groups, new GroupsTransformer());
+        $manager->createData($resource)->toArray();
         return $groups;
     }
 
@@ -47,6 +52,8 @@ class GroupsController extends Controller
         $group->name = $request->name;
         $group->date_start = $request->date_start;
         $group->date_end = $request->date_end;
+        $group->time_start = $request->time_start;
+        $group->time_end = $request->time_end;
         $group->saveOrFail();
         $group->zone()->associate($request->zone)->save();
         $group->students()->attach($request->students);
@@ -67,6 +74,8 @@ class GroupsController extends Controller
         $group->name = $request->name;
         $group->date_start = $request->date_start;
         $group->date_end = $request->date_end;
+        $group->time_start = $request->time_start;
+        $group->time_end = $request->time_end;
         $group->saveOrFail();
         $group->zone()->associate($request->zone)->save();
         $group->students()->detach();

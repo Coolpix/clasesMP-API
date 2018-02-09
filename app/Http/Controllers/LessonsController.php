@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
 use App\Lesson;
-use App\Transformers\Zone\GroupsTransformer;
 use App\Transformers\Zone\LessonsTransformer;
 use Illuminate\Http\Request;
 use EllipseSynergie\ApiResponse\Contracts\Response;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
 
 class LessonsController extends Controller
 {
@@ -20,6 +20,9 @@ class LessonsController extends Controller
 
     public function getAll(){
         $lessons = Lesson::all();
+        $manager = new Manager();
+        $resource = new Collection($lessons, new LessonsTransformer());
+        $manager->createData($resource)->toArray();
         return $lessons;
     }
 
