@@ -83,7 +83,7 @@ class GroupsController extends Controller
         foreach ($request->lessons as $lesson){
             try {
                 $lessontoSave = Lesson::findOrFail($lesson);
-                //Delete groups before save
+                //Delete lessons before save
                 $group->lessons()->save($lessontoSave);
             }catch (ModelNotFoundException $ex){
                 return $this->response->errorNotFound('Lesson '. $lesson .' Not Found');
