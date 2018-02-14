@@ -58,13 +58,11 @@ class GroupsController extends Controller
         $group->zone()->associate($request->zone)->save();
         $group->students()->attach($request->students);
         foreach ($request->lessons as $lesson){
-            try {
-                $lessontoSave = Lesson::findOrFail($lesson);
-                //Delete lessons before save
-                $group->lessons()->save($lessontoSave);
-            }catch (ModelNotFoundException $ex){
-                return $this->response->errorNotFound('Lesson '. $lesson .' Not Found');
-            }
+            $lessonToSave = new Lesson;
+            $lessonToSave->date = $lesson['date'];
+            $lessonToSave->saveOrFail();
+            $lessonToSave->students()->attach($lesson['students']);
+            $group->lessons()->save($lessonToSave);
         }
         return (new GroupsTransformer)->transform($group);
     }
@@ -81,13 +79,11 @@ class GroupsController extends Controller
         $group->students()->detach();
         $group->students()->attach($request->students);
         foreach ($request->lessons as $lesson){
-            try {
-                $lessontoSave = Lesson::findOrFail($lesson);
-                //Delete lessons before save
-                $group->lessons()->save($lessontoSave);
-            }catch (ModelNotFoundException $ex){
-                return $this->response->errorNotFound('Lesson '. $lesson .' Not Found');
-            }
+            $lessonToSave = new Lesson;
+            $lessonToSave->date = $lesson['date'];
+            $lessonToSave->saveOrFail();
+            $lessonToSave->students()->attach($lesson['students']);
+            $group->lessons()->save($lessonToSave);
         }
         return (new GroupsTransformer)->transform($group);
     }

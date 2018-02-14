@@ -8,7 +8,6 @@ class LessonsTransformer extends TransformerAbstract {
         return [
             'id' => $lesson->id,
             'date' => $lesson->date,
-            'group' => $lesson->group,
             'students' => $lesson->students
         ];
     }

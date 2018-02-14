@@ -45,7 +45,6 @@ class LessonsController extends Controller
         $lesson = new Lesson;
         $lesson->date = $request->date;
         $lesson->saveOrFail();
-        $lesson->group()->associate($request->group)->save();
         $lesson->students()->attach($request->students);
         return (new LessonsTransformer)->transform($lesson);
     }
@@ -54,7 +53,6 @@ class LessonsController extends Controller
         $lesson = Lesson::findOrFail($id);
         $lesson->date = $request->date;
         $lesson->saveOrFail();
-        $lesson->group()->associate($request->group)->save();
         $lesson->students()->detach();
         $lesson->students()->attach($request->students);
         return (new LessonsTransformer)->transform($lesson);

@@ -10,6 +10,7 @@ class StudentsTransformer extends TransformerAbstract {
             'name' => $student->name,
             'phone_number' => $student->phone_number,
             'gender' => $student->gender,
+            'email' => $student->email,
             'groups' => $student->groups,
             'lessons' => $student->lessons
         ];

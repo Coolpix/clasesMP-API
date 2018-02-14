@@ -10,10 +10,6 @@ class Lesson extends Model
         'date'
     ];
 
-    public function group() {
-        return $this->belongsTo('App\Group');
-    }
-
     public function students() {
         return $this->belongsToMany('App\Student');
     }

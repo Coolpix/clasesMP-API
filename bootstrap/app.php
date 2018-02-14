@@ -82,9 +82,14 @@ $app->singleton(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register('EllipseSynergie\ApiResponse\Laravel\LumenServiceProvider');
+$app->register('App\Providers\CatchAllOptionsRequestsProvider');
 
 $app->middleware([
     'EllipseSynergie\ApiResponse\Laravel\Middleware\ParseInclude'
+]);
+
+$app->routeMiddleware([
+    'cors' => 'App\Http\Middleware\CorsMiddleware',
 ]);
 /*
 |--------------------------------------------------------------------------

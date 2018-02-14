@@ -46,6 +46,7 @@ class StudentsController extends Controller
         $student->name = $request->name;
         $student->phone_number = $request->phone_number;
         $student->gender = $request->gender;
+        $student->email = $request->email;
         $student->saveOrFail();
         $student->groups()->attach($request->groups);
         $student->lessons()->attach($request->lessons);
@@ -57,6 +58,7 @@ class StudentsController extends Controller
         $student->name = $request->name;
         $student->phone_number = $request->phone_number;
         $student->gender = $request->gender;
+        $student->email = $request->email;
         $student->saveOrFail();
         $student->groups()->detach();
         $student->groups()->attach($request->groups);

@@ -15,7 +15,7 @@ $router->get('/', function () use ($router) {
     return 'Jummmmm...';
 });
 
-$router->group(['prefix' => 'zones'], function () use ($router) {
+$router->group(['prefix' => 'zones', 'middleware' => 'cors'], function () use ($router) {
     $router->get('/', 'ZonesController@getAll');
     $router->get('/{id}', 'ZonesController@getById');
     $router->get('/{id}/groups', 'ZonesController@getGroupsOfZone');
@@ -24,7 +24,7 @@ $router->group(['prefix' => 'zones'], function () use ($router) {
     $router->delete('/{id}', 'ZonesController@deleteZone');
 });
 
-$router->group(['prefix' => 'groups'], function () use ($router) {
+$router->group(['prefix' => 'groups', 'middleware' => 'cors'], function () use ($router) {
     $router->get('/', 'GroupsController@getAll');
     $router->get('/{id}', 'GroupsController@getById');
     $router->get('/{id}/zone', 'GroupsController@getZoneOfGroup');
@@ -33,9 +33,11 @@ $router->group(['prefix' => 'groups'], function () use ($router) {
     $router->post('/', 'GroupsController@saveGroup');
     $router->put('/{id}', 'GroupsController@updateGroup');
     $router->delete('/{id}', 'GroupsController@deleteGroup');
+    $router->options('/', function() { return response('', 200); });
+    $router->options('/{id}', function() { return response('', 200); });
 });
 
-$router->group(['prefix' => 'students'], function () use ($router) {
+$router->group(['prefix' => 'students', 'middleware' => 'cors'], function () use ($router) {
     $router->get('/', 'StudentsController@getAll');
     $router->get('/{id}', 'StudentsController@getById');
     $router->get('/{id}/groups', 'StudentsController@getGroups');
@@ -43,9 +45,11 @@ $router->group(['prefix' => 'students'], function () use ($router) {
     $router->post('/', 'StudentsController@saveStudent');
     $router->put('/{id}', 'StudentsController@updateStudent');
     $router->delete('/{id}', 'StudentsController@deleteStudent');
+    $router->options('/', function() { return response('', 200); });
+    $router->options('/{id}', function() { return response('', 200); });
 });
 
-$router->group(['prefix' => 'lessons'], function () use ($router) {
+$router->group(['prefix' => 'lessons', 'middleware' => 'cors'], function () use ($router) {
     $router->get('/', 'LessonsController@getAll');
     $router->get('/{id}', 'LessonsController@getById');
     $router->get('/{id}/group', 'LessonsController@getGroupOfLesson');
