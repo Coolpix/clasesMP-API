@@ -57,4 +57,6 @@ $router->group(['prefix' => 'lessons', 'middleware' => 'cors'], function () use 
     $router->post('/', 'LessonsController@saveLesson');
     $router->put('/{id}', 'LessonsController@updateLesson');
     $router->delete('/{id}', 'LessonsController@deleteLesson');
+    $router->options('/', function() { return response('', 200); });
+    $router->options('/{id}', function() { return response('', 200); });
 });
