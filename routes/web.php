@@ -22,6 +22,8 @@ $router->group(['prefix' => 'zones', 'middleware' => 'cors'], function () use ($
     $router->post('/', 'ZonesController@saveZone');
     $router->put('/{id}', 'ZonesController@updateZone');
     $router->delete('/{id}', 'ZonesController@deleteZone');
+    $router->options('/', function() { return response('', 200); });
+    $router->options('/{id}', function() { return response('', 200); });
 });
 
 $router->group(['prefix' => 'groups', 'middleware' => 'cors'], function () use ($router) {
