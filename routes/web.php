@@ -39,6 +39,19 @@ $router->group(['prefix' => 'groups', 'middleware' => 'cors'], function () use (
     $router->options('/{id}', function() { return response('', 200); });
 });
 
+$router->group(['prefix' => 'courses', 'middleware' => 'cors'], function () use ($router) {
+    $router->get('/', 'CoursesController@getAll');
+    $router->get('/{id}', 'CoursesController@getById');
+    $router->get('/{id}/zone', 'CoursesController@getZoneOfCourse');
+    $router->get('/{id}/lessons', 'CoursesController@getLessonsOfCourse');
+    $router->get('/{id}/students', 'CoursesController@getStudentsOfCourse');
+    $router->post('/', 'CoursesController@saveCourse');
+    $router->put('/{id}', 'CoursesController@updateCourse');
+    $router->delete('/{id}', 'CoursesController@deleteCourse');
+    $router->options('/', function() { return response('', 200); });
+    $router->options('/{id}', function() { return response('', 200); });
+});
+
 $router->group(['prefix' => 'students', 'middleware' => 'cors'], function () use ($router) {
     $router->get('/', 'StudentsController@getAll');
     $router->get('/{id}', 'StudentsController@getById');

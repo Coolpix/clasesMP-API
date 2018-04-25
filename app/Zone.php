@@ -17,6 +17,11 @@ class Zone extends Model
         return $this->hasMany('App\Group');
     }
 
+    public function courses()
+    {
+        return $this->hasMany('App\Course');
+    }
+
     /**
      * The table associated with the model.
      *

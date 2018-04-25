@@ -10,7 +10,8 @@ class ZonesTransformer extends TransformerAbstract {
             'name' => $zone->name,
             'latitude' => $zone->latitude,
             'longitude' => $zone->longitude,
-            'groups' => $zone->groups
+            'groups' => $zone->groups,
+            'courses' => $zone->courses
         ];
     }
 }
